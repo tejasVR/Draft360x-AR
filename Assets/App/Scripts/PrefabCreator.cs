@@ -100,7 +100,7 @@ namespace Draft360
                     var gameObject = Instantiate(ARPrefab[prefabCounter], hit.Pose.position, hit.Pose.rotation);
 
                     // Increase prefab counter
-                    prefabCounter++;
+                    prefabCounter++;                  
 
                     // Instantiate manipulator.
                     var manipulator =
@@ -115,6 +115,9 @@ namespace Draft360
 
                     // Make manipulator a child of the anchor.
                     manipulator.transform.parent = anchor.transform;
+
+                    // Add prefab to current frame
+                    FrameManager.Instance.AddToCurrentFrame(anchor.gameObject);
 
                     // Select the placed object.
                     manipulator.GetComponent<Manipulator>().Select();
