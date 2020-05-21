@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ namespace Draft360
         public static FrameManager Instance;
 
         [SerializeField] Slider frameSlider;
-
+        [SerializeField] TextMeshProUGUI frameCounterText;
 
         private List<GameObject> frames = new List<GameObject>();
         private int currentFrameInt;
@@ -89,6 +90,9 @@ namespace Draft360
 
             frames[_frameToShow].SetActive(true);
 
+            currentFrameInt = _frameToShow;
+
+            frameCounterText.text = "Frame: " + (currentFrameInt + 1) + "/" + frames.Count;
         }
 
         private void HideAllFrames()
