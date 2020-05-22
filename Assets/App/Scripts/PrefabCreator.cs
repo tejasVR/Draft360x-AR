@@ -23,12 +23,16 @@ namespace Draft360
     using GoogleARCore;
     using GoogleARCore.Examples.ObjectManipulation;
     using UnityEngine;
+    using UnityEngine.EventSystems;
 
     /// <summary>
     /// Controls the placement of objects via a tap gesture.
     /// </summary>
     public class PrefabCreator : Manipulator
     {
+
+        public static PrefabCreator Instance;
+
         /// <summary>
         /// The first-person camera being used to render the passthrough camera image (i.e. AR
         /// background).
@@ -38,7 +42,7 @@ namespace Draft360
         /// <summary>
         /// A prefab to place when a raycast from a user touch hits a plane.
         /// </summary>
-        public GameObject[] ARPrefab;
+        public GameObject ARPrefab;
 
         /// <summary>
         /// Manipulator prefab to attach placed objects to.
@@ -46,6 +50,18 @@ namespace Draft360
         public GameObject ManipulatorPrefab;
 
         private int prefabCounter;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         /// <summary>
         /// Returns true if the manipulation can be started for the given gesture.
@@ -81,10 +97,19 @@ namespace Draft360
 
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
-            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon;
+            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinBounds;
 
-            if (Frame.Raycast(
-                gesture.StartPosition.x, gesture.StartPosition.y, raycastFilter, out hit))
+            foreach (Touch touch in Input.touches)
+            {
+                int id = touch.fingerId;
+                if (EventSystem.current.IsPointerOverGameObject(id))
+                {
+                    // ui touched
+                    return;
+                }
+            }
+
+            if (Frame.Raycast(gesture.StartPosition.x, gesture.StartPosition.y, raycastFilter, out hit))
             {
                 // Use hit pose and camera pose to check if hittest is from the
                 // back of the plane, if it is, no need to create the anchor.
@@ -97,10 +122,13 @@ namespace Draft360
                 else
                 {
                     // Instantiate game object at the hit pose.
-                    var gameObject = Instantiate(ARPrefab[prefabCounter], hit.Pose.position, hit.Pose.rotation);
+                    var gameObject = Instantiate(ARPrefab, hit.Pose.position, hit.Pose.rotation);
+                    
+                    if (!gameObject.activeInHierarchy)
+                        gameObject.SetActive(true);
 
                     // Increase prefab counter
-                    prefabCounter++;                  
+                    //prefabCounter++;                  
 
                     // Instantiate manipulator.
                     var manipulator =
@@ -123,6 +151,11 @@ namespace Draft360
                     manipulator.GetComponent<Manipulator>().Select();
                 }
             }
+        }
+
+        public void SetARPrefab(GameObject prefab)
+        {
+            ARPrefab = prefab;
         }
     }
 }

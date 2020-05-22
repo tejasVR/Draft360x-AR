@@ -7,7 +7,14 @@ namespace Draft360
 {
     public class GalleryManager : MonoBehaviour
     {
-        public void BringUpGallery()
+		[SerializeField] GameObject imageQuadPrefab;
+
+		private void Start()
+		{
+			//CreateImageQuad();
+		}
+
+		public void BringUpGallery()
         {
 			PickImage(512);
 		}
@@ -27,6 +34,22 @@ namespace Draft360
 						return;
 					}
 
+					// Assign the image texture to the ImageQuad prefab in the Resources folder
+					//var imagePrefab = Resources.Load<ImageQuad>("ImageQuad");
+					//imagePrefab.Initialize(texture);
+
+					var imagePrefab = Instantiate(imageQuadPrefab);
+					imagePrefab.GetComponent<ImageQuad>().Initialize(texture);
+
+					imagePrefab.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
+					imagePrefab.transform.forward = Camera.main.transform.forward;
+					imagePrefab.transform.localScale = new Vector3(1f, texture.height / (float)texture.width, 1f);
+					
+					PrefabCreator.Instance.SetARPrefab(imagePrefab);
+
+					imagePrefab.SetActive(false);
+
+					/*
 					// Assign texture to a temporary quad and destroy it after 5 seconds
 					GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
 					quad.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
@@ -38,16 +61,28 @@ namespace Draft360
 						material.shader = Shader.Find("Legacy Shaders/Diffuse");
 
 					material.mainTexture = texture;
+					*/
 
-					Destroy(quad, 5f);
+					//PrefabCreator.Instance.SetARPrefab(Resources.Load<ImageQuad>("ImageQuad").gameObject);
+
+					// Don't destroy quad
+					//Destroy(quad, 5f);
 
 					// If a procedural texture is not destroyed manually, 
 					// it will only be freed after a scene change
-					Destroy(texture, 5f);
+					//Destroy(texture, 5f);
 				}
 			}, "Select a PNG image", "image/png");
 
 			Debug.Log("Permission result: " + permission);
+		}
+
+		private void CreateImageQuad()
+		{
+			GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+			quad.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
+			quad.transform.forward = Camera.main.transform.forward;
+			//quad.transform.localScale = new Vector3(1f, texture.height / (float)texture.width, 1f);
 		}
 
 		private void PickVideo()
