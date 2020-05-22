@@ -51,6 +51,8 @@ namespace Draft360
 
         private int prefabCounter;
 
+        private bool canPlaceObjects;
+
         private void Awake()
         {
             if (Instance == null)
@@ -61,6 +63,11 @@ namespace Draft360
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            canPlaceObjects = true;
         }
 
         /// <summary>
@@ -94,6 +101,9 @@ namespace Draft360
             {
                 return;
             }
+
+            if (!canPlaceObjects)
+                return;
 
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
@@ -156,6 +166,11 @@ namespace Draft360
         public void SetARPrefab(GameObject prefab)
         {
             ARPrefab = prefab;
+        }
+
+        public void TogglePlaceObject()
+        {
+            canPlaceObjects = !canPlaceObjects;
         }
     }
 }

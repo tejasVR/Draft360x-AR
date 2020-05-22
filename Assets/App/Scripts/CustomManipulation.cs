@@ -125,7 +125,7 @@ namespace Draft360
 
         private void Start()
         {
-            canManipulate = true;
+            canManipulate = false;
         }
 
         /// <summary>
