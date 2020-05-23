@@ -18,6 +18,12 @@ public class CurvedLineRenderer : MonoBehaviour
 	private CurvedLinePoint[] linePoints = new CurvedLinePoint[0];
 	private Vector3[] linePositions = new Vector3[0];
 	private Vector3[] linePositionsOld = new Vector3[0];
+	private LineRenderer lineRenderer;
+
+	private void Awake()
+	{
+		lineRenderer = GetComponent<LineRenderer>();
+	}
 
 	// Update is called once per frame
 	public void Update () 
@@ -72,6 +78,11 @@ public class CurvedLineRenderer : MonoBehaviour
             line.startWidth = lineWidth;
             line.endWidth = lineWidth;
 		}
+	}
+
+	public void SetMaterial(Material _drawingMaterial)
+	{
+		lineRenderer.material = _drawingMaterial;
 	}
 
 	void OnDrawGizmosSelected()

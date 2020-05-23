@@ -67,7 +67,7 @@ namespace Draft360
 
         private void Start()
         {
-            canPlaceObjects = true;
+            //canPlaceObjects = true;
         }
 
         /// <summary>
@@ -102,8 +102,8 @@ namespace Draft360
                 return;
             }
 
-            if (!canPlaceObjects)
-                return;
+            //if (!canPlaceObjects)
+            //    return;
 
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
@@ -168,9 +168,9 @@ namespace Draft360
             ARPrefab = prefab;
         }
 
-        public void TogglePlaceObject()
-        {
-            canPlaceObjects = !canPlaceObjects;
-        }
+        //public void TogglePlaceObject()
+        //{
+        //    canPlaceObjects = !canPlaceObjects;
+        //}
     }
 }

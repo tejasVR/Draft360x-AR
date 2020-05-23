@@ -45,6 +45,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
 
         private TwistGestureRecognizer m_TwistGestureRecognizer = new TwistGestureRecognizer();
 
+        private bool canManipulate;
+
         /// <summary>
         /// Gets the ManipulationSystem instance.
         /// </summary>
@@ -145,17 +147,30 @@ namespace GoogleARCore.Examples.ObjectManipulation
 
             DontDestroyOnLoad(gameObject);
         }
+        private void Start()
+        {
+            canManipulate = false;
+        }
 
         /// <summary>
         /// The Unity Update() method.
         /// </summary>
         public void Update()
         {
-            DragGestureRecognizer.Update();
-            PinchGestureRecognizer.Update();
-            TwoFingerDragGestureRecognizer.Update();
-            TapGestureRecognizer.Update();
-            TwistGestureRecognizer.Update();
+
+            if (canManipulate)
+            {
+                TapGestureRecognizer.Update();
+                DragGestureRecognizer.Update();
+                PinchGestureRecognizer.Update();
+                TwoFingerDragGestureRecognizer.Update();
+                TwistGestureRecognizer.Update();
+            }          
+        }
+
+        public void ToggleManipulation(bool _toggle)
+        {
+            canManipulate = _toggle;
         }
 
         /// <summary>
