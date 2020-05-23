@@ -5,12 +5,14 @@ using UnityEngine;
 namespace Draft360
 {
     public class ChangeColorManager : MonoBehaviour
-    {
-        private ChangeColor[] changeColorButtons;
+    {        
+        [SerializeField] GameObject colorMenu;
+        private ChangeColor[] changeColorButtons;       
 
         private void Awake()
         {
             GetAllColorButtons();
+
         }
 
         private void OnEnable()
@@ -27,6 +29,11 @@ namespace Draft360
             {
                 color.OnSelected -= ActivateColor;
             }
+        }
+
+        private void Start()
+        {
+            colorMenu.SetActive(false);
         }
 
         private void GetAllColorButtons()

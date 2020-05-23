@@ -72,8 +72,14 @@ namespace Draft360
 
 				touchedDown = true;
 
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				//Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+//				Ray ray = new Ray();
+
+//#if UNITY_EDITOR
+
+//				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//#endif
+
+				Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 				var rayEnd = ray.GetPoint(drawingDistance);
 
 				//Debug.Log("Touched");

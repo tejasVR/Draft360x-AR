@@ -149,7 +149,7 @@ namespace GoogleARCore.Examples.ObjectManipulation
         }
         private void Start()
         {
-            canManipulate = false;
+            canManipulate = true;
         }
 
         /// <summary>
