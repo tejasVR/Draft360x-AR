@@ -11,4 +11,4 @@ This repository is a Unity project and runs on an ARCore-enable device. You must
 * Install Unity 2019.3x or later. Download Unity here: https://unity3d.com/get-unity/download
 * Have an ARCore-enabled device. Check the list of supported devices here: https://unity3d.com/get-unity/download
 
-After meeting the requirements, you may open the repo using Unity, and make sure that **Android** is the build target by going to _File -> Build Settings_. With your ARCore device connected to your computer, select the _Build and Run_ option in the _Builsing Settings_ window.
+After meeting the requirements, you may open the repo using Unity, and make sure that **Android** is the build target by going to _File -> Build Settings_. With your ARCore device connected to your computer, select the _Build and Run_ option in the _Build Settings_ window.
