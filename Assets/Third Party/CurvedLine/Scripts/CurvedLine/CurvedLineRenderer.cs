@@ -85,6 +85,11 @@ public class CurvedLineRenderer : MonoBehaviour
 		lineRenderer.material = _drawingMaterial;
 	}
 
+	public void SetLineWidth(float _width)
+	{
+		lineWidth = _width;
+	}
+
 	void OnDrawGizmosSelected()
 	{
 		Update();

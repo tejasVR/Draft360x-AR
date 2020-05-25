@@ -131,5 +131,10 @@ namespace Draft360
 
 			//drawingMaterial.color = _colorToChange;
 		}
+
+		public void ChangeLineWidth()
+		{
+
+		}
 	}
 }
