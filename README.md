@@ -1,4 +1,4 @@
-# Draft360x-AR
+# Draft360-AR
 Draft360x-AR is a standalone AR tool that gives you the ability to turn your sketches and characters into a 360 storyboard.
 
 ## What is Draft360?
